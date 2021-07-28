@@ -211,6 +211,52 @@ class Tree implements BinaryTree {
     }
 
 
+    remove(key: number) {
+        let root = this.removeNode(this.root, key)
+    }
+    /**
+     * remove node from the tree
+     * @param node 
+     * @param key 
+     * @returns 
+     */
+    removeNode = (node: NodeTree, key: number) => {
+        if (node == null) return null
+        if (key < node.key) {
+            this.removeNode(node.left, key)
+            return node
+        } if (key > node.key) {
+            this.removeNode(node.right, key)
+        }
+        else {
+            if (node.left === null && node.right === null) {
+                node = null
+                return node
+            }
+            if (node.left === null) {
+                node = node.right
+                return node
+            }
+            else if (node.right === null) {
+                node = node.left
+                return node
+            }
+
+            let tmp = this.minNodeElement(node.right)
+            node.key = tmp.key
+            node.right = this.removeNode(node.right,tmp.key)
+            return node
+        }
+    }
+
+    minNodeElement(node : NodeTree) {
+        while(node && node.left !== null){
+            node = node.left
+        }
+        return node
+    }
+
+
 }
 
 export { Tree }
