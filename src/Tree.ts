@@ -142,6 +142,75 @@ class Tree implements BinaryTree {
     }
 
 
+    /**
+     * 
+     * @returns the minimum of the tree
+     */
+    min() {
+        return this.minNode(this.root)
+    }
+    /**
+     * 
+     * @param node 
+     * @returns the minimum of the tree
+     */
+    minNode = (node: NodeTree) => {
+        if (node) {
+            while (node && node.left) {
+                node = node.left
+            }
+
+            return node.key
+        }
+        return null
+    }
+
+    /**
+     * 
+     * @returns the maximum of the tree
+     */
+    max() {
+        return this.maxNode(this.root)
+    }
+
+    /**
+     * 
+     * @param node 
+     * @returns the maximum of the tree
+     */
+    maxNode = (node: NodeTree) => {
+        if (node) {
+            while (node && node.right) {
+                node = node.right
+            }
+            return node.key
+        }
+        return null
+    }
+
+    search(key: number) {
+        return this.searchNode(this.root, key)
+    }
+
+    searchNode = (node: NodeTree, key) => {
+
+        if (node === null) return false
+        if (key < node.key) {
+            console.log(`LEFT: We're in node ${node.key}`);
+            this.searchNode(node.left, key)
+        }
+        else if (key > node.key) {
+            this.searchNode(node.right, key)
+            console.log(`RIGHT: We're in node ${node.key}`);
+        }
+        else {
+            console.log("True");
+
+            return true
+        }
+    }
+
+
 }
 
 export { Tree }
